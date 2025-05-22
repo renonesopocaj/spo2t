@@ -6,8 +6,14 @@ import optuna
 # Reuse model definition
 from mlp_apnea_optuna import ApneaMLP
 
-def load_best_trial(study_name: str, storage: str):
+def load_best_trial(study_name: str, storage: str, trial_number: int = None):
     study = optuna.load_study(study_name=study_name, storage=storage)
+    if trial_number is not None:
+        trials = study.get_trials()
+        trial = next((t for t in trials if t.number == trial_number), None)
+        if trial is None:
+            raise ValueError(f"Trial {trial_number} not found in study {study_name}.")
+        return trial
     return study.best_trial
 
 def export_model_to_onnx(best_trial, output_path: str):
@@ -46,11 +52,12 @@ def main():
     parser.add_argument("--storage", default="sqlite:///optuna.db", help="Optuna storage URL")
     parser.add_argument("--study-name", default="apnea_mlp", help="Optuna study name")
     parser.add_argument("--output", default="artifacts/apnea_mlp.onnx", help="Output ONNX file path")
+    parser.add_argument("--trial-number", type=int, help="Export a specific trial model (e.g., model_trial_0)")
     args = parser.parse_args()
 
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
-    best_trial = load_best_trial(args.study_name, args.storage)
+    best_trial = load_best_trial(args.study_name, args.storage, args.trial_number)
     export_model_to_onnx(best_trial, args.output)
 
 

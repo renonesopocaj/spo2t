@@ -77,8 +77,10 @@ class ApneaMLP(nn.Module):
         self.net = nn.Sequential(*layers)
 
     def forward(self, x: torch.Tensor):
-        # x shape: (batch, time, 1)
-        x = x.view(x.size(0), -1)  # flatten to (batch, 25)
+        # x expected shape: (batch, 25, 1)
+        # Squeeze last dimension to obtain (batch, 25) without introducing
+        # reshape-related ops in the exported ONNX graph.
+        x = x.squeeze(-1)
         return self.net(x).squeeze(-1)
 
 
@@ -132,7 +134,7 @@ def objective(trial: Trial,
               test_eval_freq: int):
     # Hyperparameter search space
     n_layers = trial.suggest_int("n_layers", 2, 5)
-    hidden_units = [trial.suggest_int(f"n_units_l{i}", 64, 512, step=64) for i in range(n_layers)]
+    hidden_units = [trial.suggest_int(f"n_units_l{i}", 0, 64, step=8) for i in range(n_layers)]
     dropout = trial.suggest_float("dropout", 0.0, 0.5, step=0.1)
     lr = trial.suggest_loguniform("lr", 1e-4, 1e-2)
 

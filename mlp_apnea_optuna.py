@@ -134,7 +134,7 @@ def objective(trial: Trial,
               test_eval_freq: int):
     # Hyperparameter search space
     n_layers = trial.suggest_int("n_layers", 2, 5)
-    hidden_units = [trial.suggest_int(f"n_units_l{i}", 0, 64, step=8) for i in range(n_layers)]
+    hidden_units = [trial.suggest_int(f"n_units_l{i}", 0, 8, step=1) for i in range(n_layers)]
     dropout = trial.suggest_float("dropout", 0.0, 0.5, step=0.1)
     lr = trial.suggest_loguniform("lr", 1e-4, 1e-2)
 

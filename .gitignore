@@ -18,7 +18,4 @@ venv/
 # Database files
 *.db
 *.sqlite3
-
-# Build artifacts and analysis results
-/artifacts/
-/eda/ 
+ 

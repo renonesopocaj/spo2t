@@ -21,7 +21,9 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 
 class Spo2Dataset(Dataset):
-    """Simple Dataset wrapping Spo2 windows and binary labels from CSV files.
+    
+    """
+    Simple Dataset wrapping Spo2 windows and binary labels from CSV files.
 
     The dataset expects two ``.csv`` files in the data_path:
         data.csv   -> CSV file with N_samples rows and 25 columns (Spo2 values). No header.
@@ -62,7 +64,7 @@ class ApneaMLP(nn.Module):
         super().__init__()
         layers: List[nn.Module] = []
 
-        # optional initial batch norm on input features (flattened)
+        # optional initial batch norm on input features (flattened) - left out for performance
         # layers.append(nn.BatchNorm1d(input_dim))
 
         prev = input_dim
@@ -73,7 +75,7 @@ class ApneaMLP(nn.Module):
                 layers.append(nn.Dropout(p=dropout))
             prev = h
 
-        layers.append(nn.Linear(prev, 1))  # binary logits
+        layers.append(nn.Linear(prev, 1)) 
         self.net = nn.Sequential(*layers)
 
     def forward(self, x: torch.Tensor):
@@ -124,7 +126,6 @@ def evaluate(model: nn.Module, loader: DataLoader, criterion) -> Tuple[float, fl
             loss_sum += loss.item() * x.size(0)
             acc_sum += accuracy_from_logits(logits, y) * x.size(0)
     return loss_sum / len(loader.dataset), acc_sum / len(loader.dataset)
-
 
 def objective(trial: Trial,
               train_val_dataset: Dataset,
@@ -243,9 +244,7 @@ def main():
                                 load_if_exists=True,
                                 pruner=optuna.pruners.MedianPruner(n_warmup_steps=5))
 
-    # ---------------------------------------------------------------------
     # Hold-out test split (fixed for the whole optimisation)
-    # ---------------------------------------------------------------------
     test_size = int(args.test_split * len(full_dataset))
     test_size = max(1, test_size)  # ensure at least one sample
     train_val_size = len(full_dataset) - test_size
@@ -281,10 +280,7 @@ def main():
     for key, value in best_trial.params.items():
         print(f"      {key}: {value}")
 
-    # ------------------------------------------------------------------
     # Export learning curves, confusion matrix and save best model path
-    # ------------------------------------------------------------------
-
     artifacts_dir = "artifacts"
     os.makedirs(artifacts_dir, exist_ok=True)
 

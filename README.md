@@ -1,4 +1,4 @@
-# Hackathon3IFI2P-05-2025-SpO2t-
+# SpO2t
 
 OSA detection on the Nicla Sense ME, thanks to a MLP trained on 25-sample-windows of $\text{SpO}_2$ data at $1 \text{Hz}$, labeled by doctors from the Sismanoglio General Hospital of Athens.
 ## Software

@@ -12,6 +12,7 @@ OSA detection on the Nicla Sense ME, thanks to a MLP trained on 25-sample-window
 - `requirements.txt` dependencies file for python scripts.
 - All other python scripts are either to train/evaluate the mlp (`mlp_apnea_optuna.py`), or helpers for the training process (`prepare_csv_windows.py`), or to export the obtained trained single model (no ensembles) `export_onnx.py` (or the eda process for `add_apnea_events.py`, `eda_spo2_windows.py`).
 - Some considerations on the MLP: we didn't use ensembles since they're too heavy for the Nicla. The MLP is extremely small. Achieved accuracy is of $\approx 80\%$. Dropout is used (even though the model is very small). Optuna was used for hyperparameters tuning, nn.BCEWithLogitsLoss() was used as a loss function, with AdamW as gradient optimizer. Early stopping and a learning rate scheduler was used.
+- Zant SDK was used to run/deploy the MLP on the Nicla Sense ME, by generating an executable from the ONNX of the MLP. 
 
 ## Hardware
 MAX30102, Nicla Sense ME.

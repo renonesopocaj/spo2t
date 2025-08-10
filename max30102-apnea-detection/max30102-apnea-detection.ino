@@ -229,22 +229,22 @@ void loop() {
     float avg_prep_ms = (prep_acc_us  / (float)loop_counter) / 1000.0f;
     float avg_infer_ms = (infer_acc_us / (float)loop_counter) / 1000.0f;
 
-    // Serial.print(F("#"));
-    // Serial.print(loop_counter);
-    // Serial.print(F("  SpO2="));
-    // Serial.print(spo2_window[0]);
-    // Serial.print(F("%  Prob="));
-    // Serial.print(probability, 4);
-    // Serial.print(F("  ⌛prep_avg="));
-    // Serial.print(avg_prep_ms, 2);
-    // Serial.print(F(" ms  ⌛infer_avg="));
-    // Serial.print(avg_infer_ms, 2);
-    // Serial.println(F(" ms"));
-
-    Serial.print(spo2_window[0], 1);
-    Serial.print(',');
+    Serial.print(F("#"));
+    Serial.print(loop_counter);
+    Serial.print(F("  SpO2="));
+    Serial.print(spo2_window[0]);
+    Serial.print(F("%  Prob="));
     Serial.print(probability, 4);
-    Serial.print(','); 
-    Serial.println(millis()); 
+    Serial.print(F("  ⌛prep_avg="));
+    Serial.print(avg_prep_ms, 2);
+    Serial.print(F(" ms  ⌛infer_avg="));
+    Serial.print(avg_infer_ms, 2);
+    Serial.println(F(" ms"));
+
+    // Serial.print(spo2_window[0], 1);
+    // Serial.print(',');
+    // Serial.print(probability, 4);
+    // Serial.print(','); 
+    // Serial.println(millis()); 
   }
 }

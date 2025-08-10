@@ -1,3 +1,0 @@
-,baseline_start,baseline_end,min_val,drop_mag,recovery_mag,time_of_min,duration_below_95,mean_val,std_val
-seq1,98.0,98.0,95,3.0,3.0,3,0,96.8,1.469693845669907
-seq2,98.0,98.0,95,3.0,3.0,4,0,97.2,1.16619037896906

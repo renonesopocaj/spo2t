@@ -15,3 +15,8 @@ OSA detection on the Nicla Sense ME, thanks to a MLP trained on 25-sample-window
 
 ## Hardware
 MAX30102, Nicla Sense ME.
+
+## Contributors
+- Jacopo Senoner jacopo.senoner@mail.polimi.it
+- Michelangelo Stefanini michelangelo.stefanini@mail.polimi.it
+- Alessandro Trimarchi alessandro.trimarchi@mail.polimi.it

@@ -2,7 +2,7 @@
 
 OSA detection on the Nicla Sense ME, thanks to a MLP trained on 25-sample-windows of $\text{SpO}_2$ data at $1 \text{Hz}$, labeled by doctors from the Sismanoglio General Hospital of Athens.
 ## Software
-- a `max30102-apnea-detection.ino` main file to collect $R$ and $IR$ samples from MAX30102, calculate $\text{SpO}_2$ and perform the inference. We implemented a rolling average as a low pass filter and a linear interpolation to exclude invalid measurements/outliers and fill the missing values.
+- a `max30102-apnea-detection.ino` main file to collect $R$ and $IR$ samples from MAX30102, calculate $\text{SpO}_2$ and perform the inference. We implemented a rolling average as a low pass filter and a linear interpolation to exclude invalid measurements/outliers and fill the missing values. For demo purposes, due to the inaccurate measurements from MAX30102, we remove outliers quite "brutally".
 - `gating_PPG_DEMO_2.py` to detect movements that might compromise MAX30102 measurements quality.
 - A `dataset\` folder with the dataset that we obtained by pre-processing PSG-AUDIO (removing unwanted channels from the PSG, creating appropriate windows and assigning them the appropriate labels).
 - `eda\` folder to to explorative data analysis on teh folder. 
